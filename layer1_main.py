@@ -38,9 +38,15 @@ X_train = X_train/255.
 X_test = X_test/255.
 Y_train = convert_to_one_hot(Y_train, 28).T
 Y_test = convert_to_one_hot(Y_test, 28).T
+
+m_train = X_train.shape[0]
+m_test = X_test.shape[0]
 print()
-print ("number of training examples = " + str(X_train.shape[0]))
-print ("number of test examples = " + str(X_test.shape[0]))
+print ("number of training examples = " + str(m_train))
+print ("number of test examples = " + str(m_test))
+
+X_train = X_train.reshape(m_train,64,64,1)
+X_test = X_test.reshape(m_test,64,64,1)
 
 print()
 print("Dataset loaded")
@@ -52,7 +58,7 @@ print()
 
 # Loading the model
 
-model = myModel(input_shape = (64, 64), classes = 28)
+model = myModel(input_shape = (64, 64, 1), classes = 28)
 
 try:
     model.load_weights('layer1_weights.h5')
@@ -70,10 +76,9 @@ print()
 # Model trainning
 
 print("trainning started")
-    
 model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
 
-model.fit(X_train, Y_train, epochs = 1000, batch_size = 128, verbose = 0, callbacks=[MyCustomCallback()])
+model.fit(X_train, Y_train, epochs = 20, batch_size = 128, verbose = 0, callbacks=[MyCustomCallback()])
 
 print()
 print("model trained")
@@ -97,10 +102,10 @@ print ("Test Accuracy = " + str(preds[1]))
 
 # Model saving
 
-print("previous test accuracy : 0.6387500166893005   loss: 1.59038338411422 ")
-print("weights saved")
-print("trained for 8300 ebochs")
+print("previous test accuracy : 0.0865476205945015   loss: 5.757261755807059 ")
+print("trained for 40 ebochs")
 model.save_weights('layer1_weights.h5')
+print("weights saved")
 
 
 ##################################################################################################

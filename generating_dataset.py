@@ -4,10 +4,16 @@ import os
 from utils import loadAllImages
 from sklearn.model_selection import train_test_split
 
-X = np.zeros((56000,64,64))
-Y = np.zeros((56000,1))
+X = np.zeros((28000,64,64))
+Y = np.zeros((28000,1))
 
-X[0:2000,:,:],Y[0:2000] = loadAllImages('dataset/',0)
+for i in range(0,27):
+    bn = i*1000
+    bm = (i+1)*1000
+    X[bn:bm,:,:],Y[bn:bm] = loadAllImages('dataset/',i)
+    print(str(i) + ' done from 28')
+
+'''X[0:2000,:,:],Y[0:2000] = loadAllImages('dataset/',0)
 X[2000:4000,:,:],Y[2000:4000] = loadAllImages('dataset/',1)
 X[4000:6000,:,:],Y[4000:6000] = loadAllImages('dataset/',2)
 X[6000:8000,:,:],Y[6000:8000] = loadAllImages('dataset/',3)
@@ -34,8 +40,9 @@ X[46000:48000,:,:],Y[46000:48000] = loadAllImages('dataset/',23)
 X[48000:50000,:,:],Y[48000:50000] = loadAllImages('dataset/',24)
 X[50000:52000,:,:],Y[50000:52000] = loadAllImages('dataset/',25)
 X[52000:54000,:,:],Y[52000:54000] = loadAllImages('dataset/',26)
-X[54000:56000,:,:],Y[54000:56000] = loadAllImages('dataset/',31)
-Y[54000:56000] = 27
+X[54000:56000,:,:],Y[54000:56000] = loadAllImages('dataset/',31)'''
+X[27000:28000,:,:],_ = loadAllImages('dataset/',31)
+Y[27000:28000] = 27
 
 
 X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.3)

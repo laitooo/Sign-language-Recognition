@@ -155,14 +155,14 @@ def resizeImage(file,newFile):
 
 def loadAllImages(file,n):
     i = 0
-    X = np.zeros((2000,64,64))
-    Y = np.zeros((2000,1))
+    X = np.zeros((1000,64,64))
+    Y = np.zeros((1000,1))
     for file in os.listdir("dataset/" + str(n)):
         X[i] = load_image("dataset/" + str(n) + "/" + file)
-        X[i+1] = flip(X[i])
+        #X[i+1] = flip(X[i])
         Y[i] = n
-        Y[i+1] = n
-        i = i + 2
+        #Y[i+1] = n
+        i = i + 1
     return X,Y
 
 def load_dataset():
